@@ -29,8 +29,8 @@ public class Player extends Entity {
         solidArea.y = 16;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y; 
-        solidArea.width = 20;  // smaller hitbox in order to fit in 2 solid objects
-        solidArea.height = 20; // smaller hitbox in order to fit in 2 solid objects
+        solidArea.width = 24;  // smaller hitbox in order to fit in 2 solid objects
+        solidArea.height = 24; // smaller hitbox in order to fit in 2 solid objects
 
         setDefaultValues();
         getPlayerImage();
@@ -94,9 +94,13 @@ public class Player extends Entity {
                     spriteCounter =0;
                 }
             }
-
+            //tile collision ito
             collisionOn = false;
             gp.cChecker.checkTile(this);
+
+            //object collision ito
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
 
             if (collisionOn == false) {
                 switch (direction) {
@@ -114,6 +118,13 @@ public class Player extends Entity {
                         break;
                 }
             }
+        }
+    }
+
+    public void pickUpObject(int i) {
+
+        if(i != 999){
+            gp.obj[i] = null;
         }
     }
 

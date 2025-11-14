@@ -34,6 +34,12 @@ public class GamePanel extends JPanel implements Runnable{
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
 
+    //Game State: pause, resume, etc.
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+
+
     public GamePanel(){
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -45,6 +51,8 @@ public class GamePanel extends JPanel implements Runnable{
 
     public void setupGame() {
         aSetter.setObject();
+        gameState = playState;
+
     }
 
     public void startGameThread(){
@@ -57,7 +65,7 @@ public class GamePanel extends JPanel implements Runnable{
         while(gameThread != null){
             double drawInterval = 1000000000/FPS; // 0.01666 seconds
             double nextDrawTime = System.nanoTime() + drawInterval;
-            //System.out.println("the game is still running as intended"); checker if the program is running as intended
+            //System.out.println("the game is still running as intended");// checker if the program is running as intended use when you want to test if the game is running else don't use
             //1 Update information such as the character positions
             update();
             //2 Draw the updated information
@@ -80,7 +88,14 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public void update(){
-        player.update();
+
+        if(gameState == playState){
+            player.update();
+        }
+        if(gameState == pauseState){
+            
+        }
+        
     }
         
     public void paintComponent(Graphics g){
